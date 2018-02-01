@@ -6,14 +6,20 @@
     "type": "@type",
     "id": "@id",
 
+    "username": {"@id": "pass:username"},
+    "role": {"@id": "pass:role"},
+    
     "grant": {"@id": "pass:grant", "@type": "@id"},
-    "assignedId": {"@id": "pass:identifier", "@type": "@id"},
+    "assignedId": {"@id": "pass:assignedId", "@type": "@id"},
     "funder": {"@id": "pass:funder", "@type": "@id"},
-    "externalId": {"@id": "pass:identifier", "@type": "@id"},
-    "creator": {"@id": "pass:user", "@type": "@id"},
-    "pi": {"@id": "pass:person", "@type": "@id"},
-    "author": {"@id": "pass:person", "@type": "@id"},
+    "externalId": {"@id": "pass:externalId", "@type": "@id"},
+    "creator": {"@id": "pass:creator", "@type": "@id"},
+    "pi": {"@id": "pass:pi", "@type": "@id"},
+    "author": {"@id": "pass:author", "@type": "@id"},
     "journal": {"@id": "pass:journal", "@type": "@id"},
+
+    "grants": {"@id": "pass:grants", "@container": "@set"},
+    "submissions": {"@id": "pass:submissions", "@container": "@set"},    
   }
 }
   
