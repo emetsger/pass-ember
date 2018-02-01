@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "pass": "https://github.com/markpatton/pass-ember/context.jsonld/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    
+    "type": "@type",
+    "id": "@id",
+
+    "grant": {"@id": "pass:grant", "@type": "@id"},
+    "assignedId": {"@id": "pass:identifier", "@type": "@id"},
+    "funder": {"@id": "pass:funder", "@type": "@id"},
+    "externalId": {"@id": "pass:identifier", "@type": "@id"},
+    "creator": {"@id": "pass:user", "@type": "@id"},
+    "pi": {"@id": "pass:person", "@type": "@id"},
+    "author": {"@id": "pass:person", "@type": "@id"},
+    "journal": {"@id": "pass:journal", "@type": "@id"},
+  }
+}
+  
