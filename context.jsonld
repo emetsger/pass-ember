@@ -19,7 +19,7 @@
     "journal": {"@id": "pass:journal", "@type": "@id"},
 
     "grants": {"@id": "pass:grants", "@container": "@set"},
-    "submissions": {"@id": "pass:submissions", "@container": "@set"},    
+    "submissions": {"@id": "pass:submissions", "@container": "@set"}  
   }
 }
   
