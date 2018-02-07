@@ -24,7 +24,7 @@ module.exports = function(environment) {
     },
 
     api: {
-      host: 'http://localhost:8080',
+      host: null,
       namespace: 'rest/pass'
     }
   };
