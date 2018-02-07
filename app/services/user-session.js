@@ -22,9 +22,7 @@ export default Service.extend({
 
     // Ensure that empty username matches nothing
     if (!username || username.trim().length == 0) {
-      return new RSVP.Promise(resolve => {
-        resolve(undefined);
-      });
+      return new RSVP.Promise(() => undefined);
     }
 
     let store = this.get('store');
@@ -46,6 +44,9 @@ export default Service.extend({
         return users;
       }
     }).then(users => {
+      console.log('found users');
+      console.log(users);
+
       let match = users.find(user => {
         return user.get('username') === username
       });
@@ -548,7 +549,7 @@ export default Service.extend({
       journalA1, journalA2, journalA3, journalB1, journalB2, journalB3,
       journalID1, journalID2, journalID3, journalID4, journalID5, journalID6,
       publisherA1, publisherA2, publisherB1
-  ];
+    ];
 
     return RSVP.all(objects.map(o => o.save())).then(() => {
       grant1.set('creator', user2);
