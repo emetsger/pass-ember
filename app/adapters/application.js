@@ -9,8 +9,16 @@ function getPort() {
   }
 }
 
+function getScheme() {
+  if (!ENV.api.scheme) {
+    return window.location.protocol.substr(0, window.location.protocol.indexOf(":"));
+  }
+  
+  return ENV.api.scheme;
+}
+
 function getHost() {
-  // HACK - ENV.api.host is given default values in 
+  // HACK - ENV.api.host is given default values in
   // config/environment.js (i.e. it's not null).  If we
   // detect it's using defaults, then attempt to look at
   // the request to see if it's using a different host.
@@ -19,10 +27,10 @@ function getHost() {
   // A-PRIORI, SO CANNOT BE PROVIDED IN AN ENV VARIABLE
   if (ENV.api.host === 'http://localhost:8080') {
     return window.location.protocol + "//" +
-      window.location.hostname + ":" + 
+      window.location.hostname + ":" +
       getPort();
   } else {
-    return ENV.api.host;
+    return getScheme() + "://" + ENV.api.host + ":" + getPort();
   }
 }
 

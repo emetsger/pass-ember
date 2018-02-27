@@ -53,6 +53,10 @@ module.exports = function(environment) {
     ENV.api.namespace = process.env.PASS_FEDORA_PATH;
   }
 
+  if (process.env.PASS_FEDORA_SCHEME) {
+    ENV.api.scheme = process.env.PASS_FEDORA_SCHEME;
+  }
+
   if (environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none';
