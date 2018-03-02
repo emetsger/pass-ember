@@ -8,7 +8,7 @@ import { classify } from '@ember/string';
 // TODO Move configuration settings for pass to application serializer
 
 export default DS.Serializer.extend({
-    contextURI: 'http://localhost/context.jsonld',
+    contextURI: 'https://oa-pass.github.io/pass-data-model/src/main/resources/context.jsonld',
     dataURI: 'https://github.com/DataConservancy/pass-ember/',
     dataPrefix: 'pass',
 
