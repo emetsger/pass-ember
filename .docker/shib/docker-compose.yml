@@ -9,6 +9,7 @@ services:
     volumes:
       - ../../:/app:Z
       - /app/node_modules
+      - /Users/esm/workspaces/pass/ember-fedora-adapter:/Users/esm/workspaces/pass/ember-fedora-adapter
     ports:
       - '${EMBER_PORT}:${EMBER_PORT}'
     networks:
