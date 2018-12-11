@@ -30,6 +30,8 @@ export default CheckSessionRoute.extend({
       preLoadedGrant = this.get('store').findRecord('grant', params.grant);
     }
 
+    let repoSchemas = this.get('store').query('schema', { query: { match_all: {} }, from: 0, size: 100 });
+
     const querySize = 100;
 
     const repositories = this.loadObjects('repository', 0, 500);
@@ -87,7 +89,8 @@ export default CheckSessionRoute.extend({
           policies,
           funders,
           preLoadedGrant,
-          files
+          files,
+          repoSchemas
         });
       });
     }
@@ -100,7 +103,8 @@ export default CheckSessionRoute.extend({
       policies,
       // journals,
       funders,
-      preLoadedGrant
+      preLoadedGrant,
+      repoSchemas
     });
     return h;
   }
