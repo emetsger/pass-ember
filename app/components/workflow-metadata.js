@@ -29,72 +29,11 @@ function getBrowserInfo() {
 export default WorkflowComponent.extend({
   didAgree: false,
   router: service(),
+  store: service('store'),
+  ajax: service('ajax'),
   common: {
     id: 'common',
     data: {},
-    schema: {
-      title: "Publication Details <br><p class='lead text-muted'>Please provide additional information about your article/manuscript below. If DOI was provided in the initial step of the submission, the metadata associated with that DOI was found and used to prepopulate this form. </p> <p class='lead text-muted'> <i class='glyphicon glyphicon-info-sign'></i> Fields that are not editable were populated using metadata associated with the provided DOI. </p>",
-      type: 'object',
-      properties: {
-        title: {
-          type: 'string',
-          required: true
-        },
-        'journal-title': {
-          type: 'string',
-          required: true
-        },
-        volume: {
-          type: 'string',
-        },
-        issue: {
-          type: 'string',
-        },
-        ISSN: {
-          type: 'string'
-        },
-        publisher: {
-          type: 'string'
-        },
-        publicationDate: {
-          title: 'Publication Date',
-          description: 'Select your publication date',
-          format: 'datetime',
-        },
-        abstract: {
-          type: 'string',
-        },
-        // subjects: {
-        //   type: 'string',
-        // },
-        authors: {
-          title: '<div class="row"><div class="col-6">Author(s) <small class="text-muted">(optional)</small> </div><div class="col-6 p-0">ORCID(s)</div></div>',
-          // required: true,
-          type: 'array',
-          uniqueItems: true,
-          items: {
-            type: 'object',
-            properties: {
-              author: {
-                type: 'string',
-                fieldClass: 'body-text col-6 pull-left pl-0',
-              },
-              orcid: {
-                type: 'string',
-                fieldClass: 'body-text col-6 pull-left pr-0',
-              }
-            }
-          }
-        },
-        'under-embargo': {
-          type: 'string'
-        },
-        'Embargo-end-date': {
-          type: 'string',
-          format: 'date'
-        }
-      }
-    },
     options: {
       fields: {
         title: {
@@ -185,8 +124,40 @@ export default WorkflowComponent.extend({
   currentFormStep: 0,
   schemas: [],
   init() {
+    console.log('initializing workflow-metadata.js');
     this._super(...arguments);
     this.set('schemas', []);
+    console.log('model.repoSchemas: ' + this.get('model.repoSchemas'));
+    this.get('model.repoSchemas').forEach((candidateSchema) => {
+      console.log('Candidate schema ' + candidateSchema.id + ": ");
+      console.log(candidateSchema);
+      if (candidateSchema.get('schemaKey') == 'common') {
+        // retrieve the resource, then retrieve the binary and attach it to 'common.schema'.
+
+        this.get('store').findRecord('schema', candidateSchema.id).then((record) => {
+          console.log('>>>> common schema record:');
+          console.log('id: ' + record.get('id'));
+          console.log('schemaKey: ' + record.get('schemaKey'));
+          console.log('schemaUri: ' + record.get('schemaUri'));
+          if (record.attributes) {
+            record.attributes.forEach(attr => console.log('attr: ' + attr));
+          }
+          if (record.attributes) {
+            record.relationships.forEach(rel => console.log('rel: ' + rel));
+          }
+
+          console.log('Retrieving ' + record.get('schemaUri'));
+          this.get('ajax').request(record.get('schemaUri'), {
+            headers: {
+              withCredentials: 'include'
+            }
+          }).then(result => this.common.schema = result);
+        });
+      }
+    });
+
+    console.log('Common schema:');
+    console.log(this.common.schema);
   },
   willRender() {
     let schemas = this.get('schemas');
